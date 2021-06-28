@@ -77,7 +77,40 @@ From PortfolioProject..CovidDeaths
 --Where location = 'India' and 
 Where continent is not null
 --Group by date
-order by 1,2
+order by 1
+
+
+--Vaccinations
+
+--Total Vaccinations in the world
+Select location, Sum(CAST(new_vaccinations as float)) as Total_vaccinations
+From PortfolioProject..OnyxDataCovidVaccination
+Where continent is null
+and location = 'world'
+Group by location
+
+-- Total vaccinations by Country
+Select location,max(cast(total_vaccinations as float)) as total_vaccinated
+From PortfolioProject..OnyxDataCovidVaccination
+where continent is not null
+group by location
+order by total_vaccinated desc
+
+
+--Fully Vaccinated by Country
+Select location,max(cast(people_fully_vaccinated as float)) as Fully_vaccinated
+From PortfolioProject..OnyxDataCovidVaccination
+where continent is not null
+group by location
+order by Fully_vaccinated desc
+
+
+--Total Vaccination by continent
+Select continent, Sum(CAST(new_vaccinations as float)) as Total_vaccinations
+From PortfolioProject..OnyxDataCovidVaccination
+Where continent is not null
+Group by continent
+order by continent
 
 
 
